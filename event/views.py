@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from .forms import BookingForm, Registration, UserLogin, EventForm
+from .forms import BookingForm, Registration, UserLogin, EventForm,EditProfile
 from django.contrib.auth import login, authenticate, logout
 from .models import Booking, Event
 
@@ -113,13 +113,11 @@ def get_details(req, event_id):
     return render(req, "event-details.html", context)
 
 def edit_profile(req):
-
-    form = Registration(instance=req.user)
+    form = EditProfile(instance=req.user)
     if req.method == "POST":
-        form = Registration(req.POST, instance=req.user)
+        form = EditProfile(req.POST, instance=req.user)
         if form.is_valid():
-            user= form.save()
-            login(req, user)
+            form.save()
             return redirect("home_page")
     context = {
         "form": form,

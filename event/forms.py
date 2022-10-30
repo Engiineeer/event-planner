@@ -13,6 +13,11 @@ class Registration(forms.ModelForm):
             "password": forms.PasswordInput(),
         }
 
+class EditProfile(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["username", "first_name", "last_name", "email","is_staff"]
+
 
 class UserLogin(forms.Form):
     username = forms.CharField(required=True)
